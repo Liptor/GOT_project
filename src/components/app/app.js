@@ -4,8 +4,13 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage'
 import CharacterPage from '../characterPage'
+import ItemList from '../itemList';
+import GotService from '../../services/gotService';
+import CharDetails from '../charDetails';
 
 class App extends React.Component {
+    gotService = new GotService();
+
     constructor(props) {
         super(props)
         this.state = {
@@ -48,6 +53,30 @@ class App extends React.Component {
                             onClick={() => this.onRandomChar()} >Toggle</button>
                     </div>
                     <CharacterPage />
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onItemSelected={this.onCharSelected}
+                                getData={this.gotService.getAllBooks}
+                                renderItem={(item) => item.name}
+                            />
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails onItemSelected={this.onCharSelected} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onItemSelected={this.onCharSelected}
+                                getData={this.gotService.getAllHouses}
+                                renderItem={(item) => item.name}
+                            />
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails onItemSelected={this.onCharSelected} />
+                        </Col>
+                    </Row>
                 </Container>
             </>
         );
