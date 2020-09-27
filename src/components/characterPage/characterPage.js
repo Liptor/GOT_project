@@ -1,12 +1,12 @@
 import React from 'react';
-import { Col, Row} from 'reactstrap';
+import { Col, Row, Spinner } from 'reactstrap';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
 import ErrorMessage from '../errorMessage';
 
 export default class CharacterPage extends React.Component {
     state = {
-        selectedChar: 130,
+        selectedChar: '',
         error: false
     }
 
@@ -26,6 +26,7 @@ export default class CharacterPage extends React.Component {
         if (this.state.error) {
             return <ErrorMessage />
         }
+
         return (
             <Row>
                 <Col md='6'>
