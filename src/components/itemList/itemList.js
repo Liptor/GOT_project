@@ -25,8 +25,7 @@ export default class ItemList extends Component {
     }
 
     renderItems(arr) {
-        return arr.map((item) => {
-            const { id } = item;
+        return arr.map((item, id) => {
             const label = this.props.renderItem(item);
             return (
                 <li
@@ -58,3 +57,13 @@ export default class ItemList extends Component {
         );
     }
 }
+
+const f = () => {
+    return class extends React.Component{
+        render() {
+            return <h1>Hi</h1>
+        }
+    }
+}
+
+f(1)(2); 
