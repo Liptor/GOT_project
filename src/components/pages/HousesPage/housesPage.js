@@ -34,7 +34,7 @@ export default class HousesPage extends React.Component {
             <ItemList
                 onItemSelected={this.onItemSelected}
                 getData={this.gotService.getAllHouses}
-                renderItem={({ name, gender }) => `${name} (${gender})`}
+                renderItem={(name) => name}
             />
         )
 

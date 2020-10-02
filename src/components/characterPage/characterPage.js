@@ -15,7 +15,7 @@ export default class CharacterPage extends React.Component {
 
     onItemSelected = (id) => {
         this.setState({
-            selectedChar: id
+            selectedChar: 41 + id
         })
     }
 

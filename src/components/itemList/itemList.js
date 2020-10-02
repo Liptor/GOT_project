@@ -1,23 +1,8 @@
 import React, { Component } from 'react';
 import './itemList.css';
-import { Spinner } from 'reactstrap';
-import ErrorMessage from '../errorMessage';
-
-export default class ItemList extends Component {
-    state = {
-        itemList: null,
-        error: false
-    }
-
-    componentDidMount() {
-        const { getData } = this.props;
-
-        getData()
-            .then((itemList) => this.setState({
-                itemList
-            }))
-    }
-
+import withData from '../HOC/withData';
+import GotService from '../../services/gotService';
+class ItemList extends Component {
     componentDidCatch() {
         this.setState({
             error: true
@@ -31,7 +16,7 @@ export default class ItemList extends Component {
                 <li
                     key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onItemSelected(41 + id)}>
+                    onClick={() => this.props.onItemSelected(id)}>
                     {label}
                 </li>
             )
@@ -39,16 +24,8 @@ export default class ItemList extends Component {
     }
 
     render() {
-        const { itemList, error } = this.state;
-        if (!itemList) {
-            return <Spinner />
-        }
-
-        if (error) {
-            return <ErrorMessage />
-        }
-
-        const items = this.renderItems(itemList);
+        const { data } = this.props;
+        const items = this.renderItems(data);
 
         return (
             <ul className="item-list list-group">
@@ -58,12 +35,6 @@ export default class ItemList extends Component {
     }
 }
 
-const f = () => {
-    return class extends React.Component{
-        render() {
-            return <h1>Hi</h1>
-        }
-    }
-}
+const { getAllCharacters, getAllBooks, getAllHouses } = new GotService();
 
-f(1)(2); 
+export default withData(ItemList, getAllBooks);

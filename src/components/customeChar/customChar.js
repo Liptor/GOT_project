@@ -2,7 +2,6 @@ import React from 'react'
 import { Col, Row } from 'reactstrap';
 import RandomChar from '../randomChar';
 
-
 export default class CustomChar extends React.Component {
     state = {
         clicked: false
