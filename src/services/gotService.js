@@ -27,7 +27,7 @@ export default class GotService {
         return this.getResourse(`/houses/`);
     }
     getHouse = async (id) => {
-        return this.getResourse(`/characters/${id}`);
+        return this.getResourse(`/houses/${id}`);
     }
     getAllBooks = async () => {
         return this.getResourse(`/books/`);

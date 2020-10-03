@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Spinner } from 'reactstrap';
+import ErrorMessage from '../errorMessage';
 import './itemList.css';
-import withData from '../HOC/withData';
-import GotService from '../../services/gotService';
-class ItemList extends Component {
-    componentDidCatch() {
-        this.setState({
-            error: true
-        })
+
+export default class ItemList extends React.Component {
+    state = {
+        data: null,
+        error: false
     }
 
-    renderItems(arr) {
+    componentDidMount() {
+        this.props.getData()
+            .then((data) => this.setState({
+                data
+            }))
+    }
+
+    renderItems = (arr) => {
         return arr.map((item, id) => {
             const label = this.props.renderItem(item);
             return (
@@ -24,7 +31,13 @@ class ItemList extends Component {
     }
 
     render() {
-        const { data } = this.props;
+        const { data, error } = this.state;
+        if (!data) {
+            return <Spinner />
+        }
+        if (error) {
+            return <ErrorMessage />
+        }
         const items = this.renderItems(data);
 
         return (
@@ -34,7 +47,3 @@ class ItemList extends Component {
         );
     }
 }
-
-const { getAllCharacters, getAllBooks, getAllHouses } = new GotService();
-
-export default withData(ItemList, getAllBooks);
